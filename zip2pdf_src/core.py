@@ -6,10 +6,10 @@ from pprint import pprint
 import click
 
 
-@click.commcnd()
-@click.argument('zip_file', type=click.Path(exsilt=True))
-def cmd(zip_file):
-
+@click.command()
+@click.argument('zip_file', type=click.Path(exists=True))
+@click.option('--log', '-l', is_flag=True, help="""Make Export_log.txt""")
+def cmd(zip_file, log):
 
     ZIP_FILE = Path(zip_file)
     zipfilepointer = zipfile.ZipFile(ZIP_FILE)
@@ -17,15 +17,12 @@ def cmd(zip_file):
     zip_list = zipfilepointer.namelist()
     path_list = [Path(f'./{i}') for i in zip_list]
 
-
     ex_li = ['.jpg', '.jpeg', '.jpe', '.jfif', '.png', '.gif',
              '.tif', '.tiff', '.nsk', '.bmp', '.dib', '.rle']
     EX_li = list(map(lambda x: x.upper(), ex_li))
     Extends = set(ex_li + EX_li)
 
-
     image_list = [str(p) for p in path_list if p.suffix in Extends]
-
 
     Sucsess_list = []
     Error_list = []
@@ -48,11 +45,25 @@ def cmd(zip_file):
             Sucsess_list.append(image)
             i += 1
 
-    print('\nConvert Sucseed:')
-    pprint.pprint(Sucsess_list)
-    print('\nConvert Faild:')
-    pprint.pprint(Error_list)
+    if log:
+        export_log(zip_list, Sucsess_list, Error_list, Filename)
 
+    print('\nConvert Succeeded:')
+    pprint(Sucsess_list)
+    print('\nConvert Faild:')
+    pprint(Error_list)
+
+
+def export_log(zip_list, Sucsess_list, Error_list, Filename):
+    with open(Filename + '/Export_log.txt', 'w') as f:
+        print('zip file list:', file=f)
+        pprint(zip_list, stream=f)
+        print('\nComvert Succeeded:', file=f)
+        pprint(Sucsess_list, stream=f)
+        print('\nConvert Faild:', file=f)
+        pprint(Error_list, stream=f)
+        f.close()
+    print('\nLog output: Export_log.txt')
 
 
 def main():

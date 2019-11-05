@@ -1,4 +1,4 @@
-from setuptoolos import setup
+from setuptools import setup
 
 setup(
     name='zip2pdf',
@@ -7,14 +7,13 @@ setup(
     author_email='twilight6sachirin@gmail.com',
     url='https://github.com/nyamel/zip2pdf',
     licence='MIT',
-    packages=find_packages(),
-    include_package_data=True,
     install_requires=[
         'img2pdf',
         'Click'
     ],
-    entry_points='''
-        [console_scrips]
-        zip2pdf=zip2pdf.src.main:cli
-    '''
+    entry_points={
+        'console_scripts': [
+            'zip2pdf=zip2pdf_src.core:main'
+        ]
+    }
 )

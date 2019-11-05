@@ -4,3 +4,4 @@
 /test1
 *.pdf
 /src/test
+/zip2pdf_src/__pycache__
