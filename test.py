@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 import zipfile
 import pprint
@@ -28,19 +27,19 @@ image_list = [str(p) for p in path_list if p.suffix in Extends]
 Sucsess_list = []
 Error_list = []
 
-Filename = ZIP_FILE.stem
-os.mkdir(Filename)
+Filename = Path(ZIP_FILE.stem)
+Filename.mkdir()
 
 i = 0
 for image in image_list:
     try:
         with zipfilepointer.open(image) as img:
-            with open(f'{Filename}/test{i}.pdf', 'wb') as op:
+            with open(str(Filename / Path(Path(image).name).with_suffix('.pdf')), 'wb') as op:
                 op.write(img2pdf.convert(img))
                 op.close()
     except:
         print('Error:', image)
-        zipfilepointer.extract(image, Filename + '/Faild')
+        zipfilepointer.extract(image, Filename / 'Faild')
         Error_list.append(image)
     else:
         print('Sucsess:', image)
