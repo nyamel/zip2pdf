@@ -34,12 +34,20 @@ i = 0
 for image in image_list:
     try:
         with zipfilepointer.open(image) as img:
+<<<<<<< HEAD
             with open(str(Filename / Path(Path(image).name).with_suffix('.pdf')), 'wb') as op:
+=======
+            with open(str(Filename/Path(Path(image).name).with_suffix('.pdf')),'wb') as op:
+>>>>>>> 50a9bf2bd984733fc0297fe4b756c4b00237fc18
                 op.write(img2pdf.convert(img))
                 op.close()
     except:
         print('Error:', image)
+<<<<<<< HEAD
         zipfilepointer.extract(image, Filename / 'Faild')
+=======
+        zipfilepointer.extract(image, Filename/'Faild')
+>>>>>>> 50a9bf2bd984733fc0297fe4b756c4b00237fc18
         Error_list.append(image)
     else:
         print('Sucsess:', image)
