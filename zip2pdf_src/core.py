@@ -67,7 +67,7 @@ def cleanup_Faild(Foldername):
 
 
 def export_log(zip_list, Sucsess_list, Error_list, Foldername):
-    with open(Foldername + '/Export_log.txt', 'w') as f:
+    with open(Foldername / 'Export_log.txt', 'w') as f:
         print('zip file list:', file=f)
         pprint(zip_list, stream=f)
         print('\nComvert Succeeded:', file=f)
