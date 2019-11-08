@@ -37,7 +37,7 @@ def zip2pdf(zip_file, log, rename):
 
     for image in image_list:
         pdf_path = dirname / Path(Path(image).name).with_suffix('.pdf')
-        image = image.replace('\\', '/')
+        image = image.replace('¥¥', '/')
         try:
             with zipfilepointer.open(image) as img:
                 with open(str(pdf_path), 'wb') as op:
