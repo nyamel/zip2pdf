@@ -30,9 +30,9 @@ def zip2pdf(zip_file, log, rename):
     Error_list = []
 
     if rename:
-        dirname = Path(rename)
+        dirname = ZIP_FILE.parent / Path(rename)
     else:
-        dirname = Path(ZIP_FILE.stem)
+        dirname = ZIP_FILE.parent / Path(ZIP_FILE.stem)
     dirname.mkdir()
 
     for image in image_list:
