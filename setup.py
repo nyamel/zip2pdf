@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='zip2pdf',
-    version='0.2.1',
+    version='0.2.2',
     author='nyamel',
     author_email='twilight6sachirin@gmail.com',
     url='https://github.com/nyamel/zip2pdf',
