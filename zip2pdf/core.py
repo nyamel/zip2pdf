@@ -46,6 +46,7 @@ def zip2pdf(zip_file, log, rename):
         except:
             print('Error:', image)
             zipfilepointer.extract(image, dirname / 'Faild')
+            pdf_path.unlink()
             Error_list.append(image)
         else:
             Sucsess_list.append(image)
