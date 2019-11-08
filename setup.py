@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='zip2pdf',
-    version='0.2.3',
+    version='0.2.4',
     author='nyamel',
     author_email='twilight6sachirin@gmail.com',
     url='https://github.com/nyamel/zip2pdf',

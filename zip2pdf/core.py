@@ -17,7 +17,7 @@ def zip2pdf(zip_file, log, rename):
     zipfilepointer = zipfile.ZipFile(ZIP_FILE)
 
     zip_list = zipfilepointer.namelist()
-    path_list = [Path(f'./{i}') for i in zip_list]
+    path_list = [Path(fr'./{i}') for i in zip_list]
 
     ex_li = ['.jpg', '.jpeg', '.jpe', '.jfif', '.png', '.gif',
              '.tif', '.tiff', '.nsk', '.bmp', '.dib', '.rle']
