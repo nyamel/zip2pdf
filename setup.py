@@ -13,7 +13,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'zip2pdf=zip2pdf_src.core:main'
+            'zip2pdf=core:main'
         ]
     }
 )
