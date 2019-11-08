@@ -8,8 +8,10 @@ import click
 
 @click.command()
 @click.argument('zip_file', type=click.Path(exists=True))
-@click.option('--log', '-l', is_flag=True, help="""Make Export_log.txt""")
-def zip2pdf(zip_file, log):
+@click.option('--rename', '-r', type=click.Path(), help="Rename output derectry")
+@click.option('--log', '-l', is_flag=True, help="Make Export_log.txt")
+def zip2pdf(zip_file, log, rename):
+    """Convert images in zipfile to pdf."""
 
     ZIP_FILE = Path(zip_file)
     zipfilepointer = zipfile.ZipFile(ZIP_FILE)
@@ -27,11 +29,14 @@ def zip2pdf(zip_file, log):
     Sucsess_list = []
     Error_list = []
 
-    Foldername = Path(ZIP_FILE.stem)
-    Foldername.mkdir()
+    if rename:
+        dirname = Path(rename)
+    else:
+        dirname = Path(ZIP_FILE.stem)
+    dirname.mkdir()
 
     for image in image_list:
-        pdf_path = Foldername / Path(Path(image).name).with_suffix('.pdf')
+        pdf_path = dirname / Path(Path(image).name).with_suffix('.pdf')
         try:
             with zipfilepointer.open(image) as img:
                 with open(str(pdf_path), 'wb') as op:
@@ -39,15 +44,15 @@ def zip2pdf(zip_file, log):
                     op.close()
         except:
             print('Error:', image)
-            zipfilepointer.extract(image, Foldername / 'Faild')
+            zipfilepointer.extract(image, dirname / 'Faild')
             Error_list.append(image)
         else:
             Sucsess_list.append(image)
 
-    cleanup_Faild(Foldername)
+    cleanup_Faild(dirname)
 
     if log:
-        export_log(zip_list, Sucsess_list, Error_list, Foldername)
+        export_log(zip_list, Sucsess_list, Error_list, dirname)
 
     print('\nConvert Succeeded:')
     pprint(Sucsess_list)
@@ -55,8 +60,8 @@ def zip2pdf(zip_file, log):
     pprint(Error_list)
 
 
-def cleanup_Faild(Foldername):
-    folder = Path(Foldername / 'Faild')
+def cleanup_Faild(dirname):
+    folder = Path(dirname / 'Faild')
     for p in folder.glob('**/*'):
         if p.is_file():
             p.replace(folder / p.name)
@@ -66,8 +71,8 @@ def cleanup_Faild(Foldername):
             shutil.rmtree(p)
 
 
-def export_log(zip_list, Sucsess_list, Error_list, Foldername):
-    with open(Foldername / 'Export_log.txt', 'w') as f:
+def export_log(zip_list, Sucsess_list, Error_list, dirname):
+    with open(dirname / 'Export_log.txt', 'w') as f:
         print('zip file list:', file=f)
         pprint(zip_list, stream=f)
         print('\nComvert Succeeded:', file=f)
