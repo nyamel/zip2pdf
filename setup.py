@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='zip2pdf',
@@ -7,7 +7,8 @@ setup(
     author_email='twilight6sachirin@gmail.com',
     url='https://github.com/nyamel/zip2pdf',
     licence='MIT',
-    py_modules=['zip2pdf'],
+    packages=find_packages(),
+    include_package_data=True,
     install_requires=[
         'img2pdf',
         'Click'

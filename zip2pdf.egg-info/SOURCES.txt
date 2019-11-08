@@ -1,5 +1,7 @@
 README.md
 setup.py
+zip2pdf/__init__.py
+zip2pdf/core.py
 zip2pdf.egg-info/PKG-INFO
 zip2pdf.egg-info/SOURCES.txt
 zip2pdf.egg-info/dependency_links.txt
